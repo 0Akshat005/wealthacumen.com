@@ -1427,7 +1427,7 @@ footer {
 /* ABOUT US VIEW DETAILED CONTENT */
 .about-detailed-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1.1fr 0.9fr;
   gap: 40px;
   margin-top: 40px;
 }
@@ -1829,6 +1829,13 @@ footer {
 }
 
 /* Modal UI */
+.ebook-modal-grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 20px;
+  align-items: flex-start;
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -1970,6 +1977,8 @@ footer {
   .contact-layout,
   .proprietor-grid,
   .diy-grid,
+  .about-detailed-grid,
+  .ebook-modal-grid,
   .partner-grid {
     grid-template-columns: 1fr;
     gap: 40px;

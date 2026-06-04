@@ -49,9 +49,7 @@
 }
 
 body {
-  overflow-x: hidden;
-  max-width: 100%;
-}
+  font-family: var(--font-body);
 
 html {
   scroll-behavior: smooth;
@@ -62,6 +60,12 @@ body {
   color: var(--text-dark);
   background-color: var(--bg-white);
   line-height: 1.6;
+}
+
+.site-wrapper {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
 }
 
 h1,

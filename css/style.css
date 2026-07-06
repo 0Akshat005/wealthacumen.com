@@ -4072,6 +4072,10 @@ footer {
    Per brief Section 11 (Accessibility)
    ============================================ */
 @media (max-width: 768px) {
+  .hero-section {
+    padding-top: 220px !important;
+  }
+
   .hero-grid {
     grid-template-columns: 1fr !important;
     gap: 40px;

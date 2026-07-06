@@ -9,7 +9,119 @@ document.addEventListener('DOMContentLoaded', () => {
   const navList = document.querySelector('.nav-links');
   const menuToggle = document.querySelector('.menu-toggle');
 
+  // =======================================================
+  // HERO BANNER SIGNATURE VISUALIZER ANIMATIONS
+  // =======================================================
+  const floatingCard = document.getElementById('floatingGlassCard');
+  if (floatingCard) {
+    floatingCard.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetElement = document.getElementById('compounding');
+      if (targetElement) {
+        const headerOffset = document.querySelector('.main-nav').offsetHeight;
+        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - headerOffset;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+  }
+
+  const heroCountUp = document.getElementById('heroCountUp');
+  // Force chart area and label visible after curve draw completes (1.5s + 0.3s delay = 1.8s)
+  setTimeout(() => {
+    const heroArea = document.getElementById('heroArea');
+    const finalValueLabel = document.getElementById('finalValueLabel');
+    if (heroArea) heroArea.style.opacity = '1';
+    if (finalValueLabel) finalValueLabel.style.opacity = '1';
+  }, 1800);
+
+  if (heroCountUp && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let startTimestamp = null;
+    const duration = 1200;
+    const startValue = 0;
+    const endValue = 5045755;
+    
+    function step(timestamp) {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const easedProgress = progress * (2 - progress);
+      const currentValue = Math.floor(easedProgress * (endValue - startValue) + startValue);
+      heroCountUp.textContent = '\u20B9' + currentValue.toLocaleString('en-IN');
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        heroCountUp.textContent = '\u20B950,45,755'; // specific non-rounded per brief
+      }
+    }
+    window.requestAnimationFrame(step);
+  } else if (heroCountUp) {
+    heroCountUp.textContent = '\u20B950,45,755';
+  }
+
+
+  // =======================================================
+  // HERO CHART PANEL PARALLAX TILT
+  // Per brief Section 10: mouse parallax on pointer devices only
+  // =======================================================
+  const chartPanel = document.getElementById('hero-chart-panel');
+  const heroSection = document.getElementById('hero');
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (chartPanel && heroSection && !prefersReduced && window.matchMedia('(pointer: fine)').matches) {
+    heroSection.addEventListener('mousemove', (e) => {
+      const rect = heroSection.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / (rect.width / 2);   // -1 to +1
+      const dy = (e.clientY - cy) / (rect.height / 2);  // -1 to +1
+      const maxTilt = 3.5; // degrees — subtle, per brief
+      chartPanel.style.transform = `perspective(800px) rotateY(${dx * maxTilt}deg) rotateX(${-dy * maxTilt}deg)`;
+    });
+
+    heroSection.addEventListener('mouseleave', () => {
+      chartPanel.style.transform = 'perspective(800px) rotateY(0deg) rotateX(0deg)';
+    });
+  }
+
+  // =======================================================
+  // HERO ENTRANCE CHOREOGRAPHY (JS-driven, bulletproof)
+  // Per brief Section 10: staggered sequence
+  // eyebrow → headline → subhead → ticker → delay → CTA → microcopy
+  // =======================================================
+  const heroContent = document.getElementById('hero-content');
+  const heroChart = document.querySelector('.hero-chart-column');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (heroContent && !reducedMotion) {
+    const heroItems = Array.from(heroContent.children);
+    const delays = [0, 150, 280, 420, 560, 700, 860]; // ms
+
+    heroItems.forEach(el => {
+      el.classList.add('hero-reveal-item');
+    });
+
+    if (heroChart) {
+      heroChart.classList.add('hero-reveal-item');
+    }
+
+    requestAnimationFrame(() => {
+      heroItems.forEach((el, i) => {
+        setTimeout(() => {
+          el.classList.add('revealed');
+        }, delays[i] || i * 120);
+      });
+      if (heroChart) {
+        setTimeout(() => heroChart.classList.add('revealed'), 300);
+      }
+    });
+  }
+
   // Handle SPA routing by showing/hiding view containers based on URL hash
+
   function handleRoute() {
     const hash = window.location.hash || '#home';
     
@@ -58,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Standard views switching
     const viewName = hash.replace('#', '');
-    const validViews = ['home', 'about', 'proprietor', 'faqs', 'diy'];
+    const validViews = ['home', 'about', 'proprietor', 'faqs', 'diy', 'contact'];
     
     if (validViews.includes(viewName)) {
       activateView(viewName);
@@ -116,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'Optional critical illness riders to offset income loss during recovery',
         'Expert guidance in claims settlement, ensuring support when you need it most'
       ],
-      diyLink: '#home-section-contact',
+      diyLink: '#contact',
       diyTitle: 'Request Insurance Advice',
       diyDesc: 'Let us customize a risk protection policy for your family'
     },
@@ -148,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'Excellent tool for asset allocation and portfolio diversification',
         'Choose from highly-rated corporate debt, sovereign gold bonds, or government papers'
       ],
-      diyLink: '#home-section-contact',
+      diyLink: '#contact',
       diyTitle: 'Consult on Fixed Income',
       diyDesc: 'Schedule a call to discuss secure bond options'
     },
@@ -164,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'Select monthly, quarterly, or cumulative interest payout systems',
         'Easy premature withdrawal options to cover sudden cash requirements'
       ],
-      diyLink: '#home-section-contact',
+      diyLink: '#contact',
       diyTitle: 'Compare Fixed Deposit Rates',
       diyDesc: 'Contact us to lock in the highest FD rates today'
     }
@@ -214,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
       diyLinkBtn.removeAttribute('rel');
       diyLinkBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        window.location.hash = '#home-section-contact';
+        window.location.hash = '#contact';
       });
     } else {
       diyLinkBtn.setAttribute('target', '_blank');
@@ -327,10 +439,10 @@ document.addEventListener('DOMContentLoaded', () => {
         datasets: [{
           label: 'Total Demat Accounts in India (Millions)',
           data: [40.8, 55.1, 89.7, 114.5, 154.0, 182.0],
-          backgroundColor: 'rgba(10, 31, 68, 0.85)',
-          borderColor: '#0A1F44',
+          backgroundColor: 'rgba(192, 138, 46, 0.85)',
+          borderColor: '#C08A2E',
           borderWidth: 1,
-          hoverBackgroundColor: '#D4A017',
+          hoverBackgroundColor: '#E2B35B',
           borderRadius: 4
         }]
       },
@@ -342,9 +454,9 @@ document.addEventListener('DOMContentLoaded', () => {
             display: false
           },
           tooltip: {
-            backgroundColor: '#0A1F44',
-            titleFont: { family: 'Poppins' },
-            bodyFont: { family: 'Open Sans' },
+            backgroundColor: '#16294D',
+            titleFont: { family: 'IBM Plex Sans', weight: '600' },
+            bodyFont: { family: 'IBM Plex Sans' },
             callbacks: {
               label: function(context) {
                 return ` ${context.raw} Million Accounts`;
@@ -356,10 +468,11 @@ document.addEventListener('DOMContentLoaded', () => {
           y: {
             beginAtZero: true,
             grid: {
-              color: 'rgba(0, 0, 0, 0.05)'
+              color: 'rgba(255, 255, 255, 0.08)'
             },
             ticks: {
-              font: { family: 'Open Sans' }
+              color: 'rgba(255, 255, 255, 0.7)',
+              font: { family: 'IBM Plex Mono', size: 11 }
             }
           },
           x: {
@@ -367,7 +480,8 @@ document.addEventListener('DOMContentLoaded', () => {
               display: false
             },
             ticks: {
-              font: { family: 'Poppins', weight: 600 }
+              color: 'rgba(255, 255, 255, 0.7)',
+              font: { family: 'IBM Plex Sans', weight: 600 }
             }
           }
         }
@@ -468,27 +582,31 @@ document.addEventListener('DOMContentLoaded', () => {
       sipChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
-          labels: ['Total Investment', 'Est. Returns'],
+          labels: ['Total Invested', 'Wealth Gained'],
           datasets: [{
             data: [invested, gained],
-            backgroundColor: ['#0A1F44', '#D4A017'],
-            borderColor: ['#0A1F44', '#D4A017'],
+            backgroundColor: ['#0E7C66', '#C08A2E'],
+            borderColor: ['#0E7C66', '#C08A2E'],
             borderWidth: 1
           }]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          cutout: '65%',
+          cutout: '70%',
           plugins: {
             legend: {
               position: 'bottom',
               labels: {
-                font: { family: 'Open Sans', size: 12 },
-                color: '#222222'
+                font: { family: 'IBM Plex Sans', size: 12, weight: 500 },
+                color: '#10151F',
+                padding: 15
               }
             },
             tooltip: {
+              backgroundColor: '#16294D',
+              titleFont: { family: 'IBM Plex Sans' },
+              bodyFont: { family: 'IBM Plex Sans' },
               callbacks: {
                 label: function(context) {
                   return ` ${context.label}: ${formatCurrency(context.raw)}`;
@@ -695,7 +813,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  const heroSection = document.getElementById('hero');
   if (heroSection) {
     heroSection.addEventListener('mousemove', (e) => {
       const x = (window.innerWidth - e.pageX * 2) / 80;
@@ -707,5 +824,522 @@ document.addEventListener('DOMContentLoaded', () => {
       heroSection.style.backgroundPosition = '50% 50%';
     });
   }
+
+  // =======================================================
+  // HERO PARTICLES INTERACTIVE SIMULATION
+  // =======================================================
+  const canvas = document.getElementById('hero-particles');
+  if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const ctx = canvas.getContext('2d');
+    let particlesArray = [];
+    const numberOfParticles = 40;
+    const maxConnectionDistance = 120;
+    let mouse = { x: null, y: null, radius: 150 };
+
+    // Track mouse coordinates on hero hover
+    const parentHero = canvas.parentElement;
+    parentHero.addEventListener('mousemove', (e) => {
+      const rect = parentHero.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    });
+
+    parentHero.addEventListener('mouseleave', () => {
+      mouse.x = null;
+      mouse.y = null;
+    });
+
+    function resizeCanvas() {
+      canvas.width = parentHero.offsetWidth;
+      canvas.height = parentHero.offsetHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    // Particle Object Definition
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.4;
+        this.vy = (Math.random() - 0.5) * 0.4;
+        this.size = Math.random() * 2.5 + 1.5;
+        this.color = Math.random() > 0.5 ? 'rgba(192, 138, 46, 0.4)' : 'rgba(14, 124, 102, 0.4)'; // Gold or Teal
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // Bounce on boundaries
+        if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
+        if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
+      }
+
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function init() {
+      particlesArray = [];
+      for (let i = 0; i < numberOfParticles; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+
+    function connect() {
+      for (let a = 0; a < particlesArray.length; a++) {
+        for (let b = a; b < particlesArray.length; b++) {
+          const dx = particlesArray[a].x - particlesArray[b].x;
+          const dy = particlesArray[a].y - particlesArray[b].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < maxConnectionDistance) {
+            const opacity = (1 - distance / maxConnectionDistance) * 0.15;
+            ctx.strokeStyle = `rgba(192, 138, 46, ${opacity})`; // Compounding Gold wireframes
+            ctx.lineWidth = 0.8;
+            ctx.beginPath();
+            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+            ctx.stroke();
+          }
+        }
+
+        // Connect to mouse pointer
+        if (mouse.x !== null && mouse.y !== null) {
+          const dx = particlesArray[a].x - mouse.x;
+          const dy = particlesArray[a].y - mouse.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < mouse.radius) {
+            const opacity = (1 - distance / mouse.radius) * 0.25;
+            ctx.strokeStyle = `rgba(14, 124, 102, ${opacity})`; // Interactive Growth Teal lines
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+            ctx.lineTo(mouse.x, mouse.y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].update();
+        particlesArray[i].draw();
+      }
+      connect();
+      requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
+  }
+
+
+  // =======================================================
+  // REAL-TIME OPPORTUNITY COST TICKER
+  // Per brief Section 8: 2dp, odometer-style, assumption always visible
+  // Updates BOTH the slim header strip AND the large hero display
+  // =======================================================
+  const tickerSlim   = document.getElementById('ticking-wealth-lost');    // slim header
+  const tickerHero   = document.getElementById('hero-ticker-display');    // hero block
+
+  if (tickerSlim || tickerHero) {
+    const pageOpenTime = Date.now();
+    // Math: ₹1,00,000/mo SIP, 12% p.a. compounded monthly over 15y
+    // Future Value = ₹5,04,57,550. Marginal gain per second:
+    // dFV/dt = FV * ln(1 + r_monthly) ≈ 5,04,57,550 * (0.12/12) / (12*15) months
+    // Simplified: per-second growth on the outstanding SIP corpus
+    // Using: ~₹2,163,840/year marginal benefit = ₹0.06858 per second (10x faster)
+    const gainPerMs = 0.06858 / 1000;
+
+    let prevDisplayVal = '0.00';
+
+    function updateTicker() {
+      const elapsedMs = Date.now() - pageOpenTime;
+      const totalGained = elapsedMs * gainPerMs;
+      const display = '\u20B9' + totalGained.toFixed(2);
+
+      if (tickerSlim)  tickerSlim.textContent  = display;
+      if (tickerHero)  tickerHero.textContent   = display;
+    }
+
+    // Respect prefers-reduced-motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // Still show, just don't animate rolling — update at 1s intervals
+      setInterval(updateTicker, 1000);
+    } else {
+      // ~10 updates/second for smooth odometer feel (not jarring)
+      setInterval(updateTicker, 100);
+    }
+
+    updateTicker(); // immediate first draw
+  }
+
+  // =======================================================
+  // INTERACTIVE ASSET EXPLORER TAB SWITCHING
+  // =======================================================
+  const explorerData = {
+    'equity': {
+      eyebrow: '⚡ Compound Potential: High',
+      title: 'Equity Investment Solutions',
+      bestFor: 'Best for: Hands-on investors comfortable with volatility',
+      text: 'Maximize long-term capital growth through direct stock market participation. Direct equity investing allows you to own shares in leading corporations, capturing compounding dividends and price appreciation. Access institutional trading terminals and real-time charting via Angel One.',
+      riskWidth: '85%',
+      riskColor: 'var(--wa-rust-orange)',
+      riskValue: 'High (85%)',
+      returnWidth: '80%',
+      returnColor: 'var(--wa-growth-teal)',
+      returnValue: '5+ Years',
+      learnLink: '#service-equity',
+      diyLink: 'https://angel-one.onelink.me/Wjgr/h9fay40r'
+    },
+    'mutual-funds': {
+      eyebrow: '📈 Compounding Potential: High',
+      title: 'Mutual Funds Distribution',
+      bestFor: 'Best for: Long-term, disciplined goal-building',
+      text: 'Achieve disciplined wealth generation through diversified, professionally managed mutual fund portfolios. Pool savings with other investors to own a basket of stocks, bonds, or gold, matching your financial goals and risk capabilities.',
+      riskWidth: '60%',
+      riskColor: 'var(--wa-compounding-gold)',
+      riskValue: 'Moderate (60%)',
+      returnWidth: '85%',
+      returnColor: 'var(--wa-growth-teal)',
+      returnValue: '5+ Years',
+      learnLink: '#service-mutual-funds',
+      diyLink: 'https://angel-one.onelink.me/Wjgr/wcqvcyi6'
+    },
+    'etfs': {
+      eyebrow: '📊 Cost Efficiency: High',
+      title: 'Exchange Traded Funds (ETFs)',
+      bestFor: 'Best for: Low-cost, diversified market exposure',
+      text: 'Gain broad market exposure with highly liquid, cost-effective ETFs. Mirror index performance (like Nifty 50 or Gold) at low expense ratios with the real-time liquidity of trading on stock exchanges.',
+      riskWidth: '55%',
+      riskColor: 'var(--wa-compounding-gold)',
+      riskValue: 'Moderate (55%)',
+      returnWidth: '70%',
+      returnColor: 'var(--wa-growth-teal)',
+      returnValue: '3+ Years',
+      learnLink: '#service-etfs',
+      diyLink: 'https://angel-one.onelink.me/Wjgr/h9fay40r'
+    },
+    'bonds': {
+      eyebrow: '🛡️ Capital Protection: Stable',
+      title: 'Bonds & Debt Securities',
+      bestFor: 'Best for: Capital preservation with steady income',
+      text: 'Preserve capital and secure predictable income streams with top-rated corporate, PSU, and government bonds. Shield your portfolio from stock market volatility with steady interest payouts.',
+      riskWidth: '35%',
+      riskColor: 'var(--wa-growth-teal)',
+      riskValue: 'Low–Moderate (35%)',
+      returnWidth: '50%',
+      returnColor: 'var(--wa-growth-teal)',
+      returnValue: '1–5 Years',
+      learnLink: '#service-bonds',
+      diyLink: '#contact'
+    },
+    'fixed-deposit': {
+      eyebrow: '🔒 Capital Security: Guaranteed',
+      title: 'Fixed Deposits (FDs)',
+      bestFor: 'Best for: Guaranteed, risk-free returns',
+      text: 'Earn fixed, guaranteed returns from India\'s top-rated financial institutions. Lock in your funds at a stable interest rate unaffected by macro market volatility.',
+      riskWidth: '15%',
+      riskColor: 'var(--wa-growth-teal)',
+      riskValue: 'Low (15%)',
+      returnWidth: '40%',
+      returnColor: 'var(--wa-growth-teal)',
+      returnValue: 'Flexible Horizon',
+      learnLink: '#service-fixed-deposit',
+      diyLink: '#contact'
+    },
+    'insurance': {
+      eyebrow: '⛱️ Risk Management: High',
+      title: 'Comprehensive Insurance Policies',
+      bestFor: 'Best for: Protecting the plan, not growing it',
+      text: 'Secure your family\'s financial future and health with term life and medical insurance. Build a robust cushion to protect your long-term compounding investments during emergency life events.',
+      riskWidth: '10%',
+      riskColor: 'var(--wa-growth-teal)',
+      riskValue: 'Minimal (10%)',
+      returnWidth: '95%',
+      returnColor: 'var(--wa-growth-teal)',
+      returnValue: 'Long-term (10+ Years)',
+      learnLink: '#service-insurance',
+      diyLink: '#contact'
+    }
+  };
+
+  const assetTabs = document.querySelectorAll('.asset-tab');
+  const dashboardCard = document.getElementById('asset-dashboard');
+  
+  if (dashboardCard && assetTabs.length > 0) {
+    const dashEyebrow = document.getElementById('dash-eyebrow');
+    const dashTitle = document.getElementById('dash-title');
+    const dashBestFor = document.getElementById('dash-best-for');
+    const dashText = document.getElementById('dash-text');
+    const dashRiskBar = document.getElementById('dash-risk-bar');
+    const dashRiskVal = document.getElementById('dash-risk-value');
+    const dashReturnBar = document.getElementById('dash-return-bar');
+    const dashReturnVal = document.getElementById('dash-return-value');
+    const dashLearnBtn = document.getElementById('dash-learn-btn');
+    const dashDiyBtn = document.getElementById('dash-diy-btn');
+
+    assetTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const assetKey = tab.getAttribute('data-asset');
+        const data = explorerData[assetKey];
+        if (!data) return;
+
+        // Active tab switch
+        assetTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        // Fade morphing animation
+        dashboardCard.classList.add('workspace-fade-out');
+        setTimeout(() => {
+          dashEyebrow.textContent = data.eyebrow;
+          dashTitle.textContent = data.title;
+          dashBestFor.textContent = data.bestFor;
+          dashText.textContent = data.text;
+          
+          dashRiskBar.style.width = data.riskWidth;
+          dashRiskBar.style.backgroundColor = data.riskColor;
+          dashRiskVal.textContent = data.riskValue;
+
+          dashReturnBar.style.width = data.returnWidth;
+          dashReturnBar.style.backgroundColor = data.returnColor;
+          dashReturnVal.textContent = data.returnValue;
+
+          dashLearnBtn.setAttribute('href', data.learnLink);
+          dashDiyBtn.setAttribute('href', data.diyLink);
+
+          // Change button styling based on whether it is direct link or modal callback
+          if (data.diyLink.startsWith('#')) {
+            dashDiyBtn.textContent = 'Request Advice Consultation';
+            dashDiyBtn.className = 'btn btn-secondary';
+          } else {
+            dashDiyBtn.innerHTML = 'Start Online Account <i class="fas fa-chevron-right" style="margin-left: 8px;"></i>';
+            dashDiyBtn.className = 'btn btn-primary';
+          }
+
+          dashboardCard.classList.remove('workspace-fade-out');
+        }, 200);
+      });
+    });
+  }
+
+  // =======================================================
+  // GROWW-INSPIRED EXPLORER MOCK SEARCH
+  // =======================================================
+  const searchInput = document.getElementById('fund-search-input');
+  const searchSuggestions = document.getElementById('search-suggestions');
+  const searchClear = document.getElementById('search-clear-btn');
+  const searchResultsBox = document.getElementById('search-results-box');
+  const suggestionTagsSec = document.querySelector('.suggestions-section');
+
+  const searchableAssets = [
+    { name: 'Nippon India Large Cap Fund', type: 'Mutual Fund', targetAsset: 'mutual-funds' },
+    { name: 'Parag Parikh Flexi Cap Fund', type: 'Mutual Fund', targetAsset: 'mutual-funds' },
+    { name: 'SBI Small Cap Fund Growth', type: 'Mutual Fund', targetAsset: 'mutual-funds' },
+    { name: 'HDFC Mid-Cap Opportunities Fund', type: 'Mutual Fund', targetAsset: 'mutual-funds' },
+    { name: 'Angel One Demat & Trading Account', type: 'Equity', targetAsset: 'equity' },
+    { name: 'Gold BeES ETF Exchange Traded', type: 'ETF', targetAsset: 'etfs' },
+    { name: 'Sovereign Gold Bonds Series', type: 'Bond', targetAsset: 'bonds' },
+    { name: 'ICICI Prudential Nifty 50 ETF', type: 'ETF', targetAsset: 'etfs' },
+    { name: 'HDFC Tax Saver ELSS Mutual Fund', type: 'Mutual Fund', targetAsset: 'mutual-funds' },
+    { name: 'SBI Corporate Fixed Deposit', type: 'Fixed Deposit', targetAsset: 'fixed-deposit' },
+    { name: 'Term Insurance Security Cover', type: 'Insurance', targetAsset: 'insurance' }
+  ];
+
+  if (searchInput && searchSuggestions) {
+    // Show suggestions on focus
+    searchInput.addEventListener('focus', () => {
+      searchSuggestions.style.display = 'block';
+    });
+
+    // Close suggestions on click outside (with short delay for clicks inside)
+    document.addEventListener('click', (e) => {
+      if (!searchInput.contains(e.target) && !searchSuggestions.contains(e.target)) {
+        searchSuggestions.style.display = 'none';
+      }
+    });
+
+    // Suggestions Click
+    const tags = document.querySelectorAll('.suggestion-tag');
+    tags.forEach(tag => {
+      tag.addEventListener('click', () => {
+        const query = tag.getAttribute('data-search');
+        searchInput.value = query;
+        searchClear.style.display = 'block';
+        triggerTabForSearch(query);
+        searchSuggestions.style.display = 'none';
+      });
+    });
+
+    // Clear Button Click
+    if (searchClear) {
+      searchClear.addEventListener('click', () => {
+        searchInput.value = '';
+        searchClear.style.display = 'none';
+        searchResultsBox.style.display = 'none';
+        suggestionTagsSec.style.display = 'block';
+        searchInput.focus();
+      });
+    }
+
+    // Input matching filter
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.trim().toLowerCase();
+      if (query.length > 0) {
+        searchClear.style.display = 'block';
+        suggestionTagsSec.style.display = 'none';
+        
+        // Match items
+        const matches = searchableAssets.filter(item => 
+          item.name.toLowerCase().includes(query) || item.type.toLowerCase().includes(query)
+        );
+
+        if (matches.length > 0) {
+          searchResultsBox.innerHTML = '';
+          matches.forEach(match => {
+            const div = document.createElement('div');
+            div.className = 'search-match-item';
+            div.innerHTML = `
+              <div class="match-info">
+                <h5>${match.name}</h5>
+                <span>${match.type} • Official Broker / MFD Channel</span>
+              </div>
+              <div class="match-action">Analyze Tab <i class="fas fa-arrow-right" style="margin-left: 5px;"></i></div>
+            `;
+            
+            div.addEventListener('click', () => {
+              searchInput.value = match.name;
+              // Trigger tab click
+              const targetTab = document.querySelector(`.asset-tab[data-asset="${match.targetAsset}"]`);
+              if (targetTab) {
+                targetTab.click();
+                // Smooth scroll to workspace
+                const workspaceTop = document.querySelector('.asset-explorer-workspace').getBoundingClientRect().top + window.pageYOffset - 100;
+                window.scrollTo({ top: workspaceTop, behavior: 'smooth' });
+              }
+              searchSuggestions.style.display = 'none';
+            });
+            
+            searchResultsBox.appendChild(div);
+          });
+          searchResultsBox.style.display = 'flex';
+        } else {
+          searchResultsBox.innerHTML = `
+            <div style="padding: 15px 0; text-align: center; color: var(--wa-slate); font-size: 13.5px;">
+              <i class="fas fa-search-minus" style="margin-right: 5px;"></i> No matches found. Try searching "Nippon", "Gold", or "Demat".
+            </div>
+          `;
+          searchResultsBox.style.display = 'block';
+        }
+      } else {
+        searchClear.style.display = 'none';
+        searchResultsBox.style.display = 'none';
+        suggestionTagsSec.style.display = 'block';
+      }
+    });
+  }
+
+  function triggerTabForSearch(query) {
+    let matchedAsset = 'mutual-funds';
+    const q = query.toLowerCase();
+    
+    if (q.includes('large cap') || q.includes('flexi cap') || q.includes('small cap') || q.includes('mid-cap') || q.includes('mutual')) {
+      matchedAsset = 'mutual-funds';
+    } else if (q.includes('gold') || q.includes('bees') || q.includes('etf') || q.includes('nifty 50')) {
+      matchedAsset = 'etfs';
+    } else if (q.includes('demat') || q.includes('trading') || q.includes('equity') || q.includes('stock')) {
+      matchedAsset = 'equity';
+    }
+
+    const targetTab = document.querySelector(`.asset-tab[data-asset="${matchedAsset}"]`);
+    if (targetTab) {
+      targetTab.click();
+      const workspaceTop = document.querySelector('.asset-explorer-workspace').getBoundingClientRect().top + window.pageYOffset - 100;
+      window.scrollTo({ top: workspaceTop, behavior: 'smooth' });
+    }
+  }
+
+  // =======================================================
+  // EDITORIAL TESTIMONIALS SPOTLIGHT ROTATION
+  // Per brief Section 7: slow, editorial pull-quote cycling
+  // All testimonial text verbatim — content frozen per brief
+  // =======================================================
+  const testimonials = [
+    {
+      text: "My sincere thanks to Mr. Atharva of Wealth Acumen for providing the knowledge of stock market in a very simple but clear ways by using different charts and different methods. Your knowledge and clear explanations have significantly enhanced my understanding of the subject.",
+      attribution: "Manisha Kahate \u2014 Senior Lecturer"
+    },
+    {
+      text: "Wealth Acumen helped me understand how knowledge and psychology play a key role in investing. I applied what I learned and have already started seeing positive results. Atharva\u2019s guidance makes complex investment products simple to understand.",
+      attribution: "Rupesh Gupta \u2014 IT Professional"
+    },
+    {
+      text: "Mr. Atharva is a trustworthy advisor who provides investment guidance based on individual needs. He also helped me recover an old frozen demat account with another broker, where I had lost hope of getting my money back. I\u2019m truly happy with his support and work.",
+      attribution: "Nandita Tamhane \u2014 Govt Employee"
+    },
+    {
+      text: "It is very nice experience and journey of investment and trading with you since last 2 years. Learned a lot with basics in trading and then via systematic investment plan with SIP. Your knowhow and experience worked for all of us in our family.",
+      attribution: "Shekhar Jogwar \u2014 Engineer"
+    }
+  ];
+
+  const testimonialText = document.getElementById('testimonial-text');
+  const testimonialAttrib = document.getElementById('testimonial-attribution');
+  const testimonialDots = document.querySelectorAll('.testimonial-dot');
+
+  if (testimonialText && testimonialAttrib && testimonialDots.length) {
+    let currentIndex = 0;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function showTestimonial(index) {
+      if (prefersReduced) {
+        testimonialText.textContent = testimonials[index].text;
+        testimonialAttrib.textContent = testimonials[index].attribution;
+      } else {
+        testimonialText.style.opacity = '0';
+        testimonialAttrib.style.opacity = '0';
+        setTimeout(() => {
+          testimonialText.textContent = testimonials[index].text;
+          testimonialAttrib.textContent = testimonials[index].attribution;
+          testimonialText.style.transition = 'opacity 0.5s ease';
+          testimonialAttrib.style.transition = 'opacity 0.5s ease';
+          testimonialText.style.opacity = '1';
+          testimonialAttrib.style.opacity = '1';
+        }, 300);
+      }
+
+      testimonialDots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+      currentIndex = index;
+    }
+
+    // Dot click navigation
+    testimonialDots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const idx = parseInt(dot.dataset.index, 10);
+        showTestimonial(idx);
+      });
+    });
+
+    // Auto-cycle every 6 seconds — slow editorial pace
+    if (!prefersReduced) {
+      setInterval(() => {
+        const nextIndex = (currentIndex + 1) % testimonials.length;
+        showTestimonial(nextIndex);
+      }, 6000);
+    }
+  }
+
 });
+
+
 

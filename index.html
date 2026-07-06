@@ -19,6 +19,8 @@
   
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
+  <!-- Preload hero background image (likely LCP element) -->
+  <link rel="preload" as="image" href="images/hero_bg.jpg">
 </head>
 <body>
 <div class="site-wrapper">
@@ -27,15 +29,39 @@
        HEADER / TOP BAR
        ======================================================= -->
   <header>
-    <!-- Top Announcement Bar -->
-    <div class="top-bar">
-      <div class="top-bar-left">
-        <a href="tel:9325227357"><i class="fas fa-phone-alt"></i> CALL FREE: 9325227357</a>
-        <a href="mailto:info@wealthacumen.in"><i class="fas fa-envelope"></i> info@wealthacumen.in</a>
-      </div>
-      <div class="top-bar-right">
-        <a href="https://www.instagram.com/wealthacumen31" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://whatsapp.com/channel/0029VaaaGehLo4hjv6EYgm01" target="_blank" rel="noopener" aria-label="WhatsApp Channel"><i class="fab fa-whatsapp"></i></a>
+    <!-- ================================================
+         CONSOLIDATED SLIM HEADER STRIP
+         Merged: ticker + contact/social into 1 row
+         Per brief Section 1: reduce bars before hero
+         ================================================ -->
+    <div class="slim-header-strip">
+      <div class="slim-header-inner">
+        <!-- Left: Contact -->
+        <div class="slim-header-left">
+          <a href="tel:9325227357" class="slim-header-link">
+            <i class="fas fa-phone-alt"></i>
+            9325227357
+          </a>
+          <span class="slim-header-sep">·</span>
+          <a href="mailto:info@wealthacumen.in" class="slim-header-link">
+            <i class="fas fa-envelope"></i>
+            info@wealthacumen.in
+          </a>
+        </div>
+        <!-- Center: Ticker (always visible, compact per brief) -->
+        <div class="slim-header-ticker">
+          <i class="fas fa-hourglass-start slim-ticker-icon"></i>
+          <span class="slim-ticker-text">Cost of waiting: <strong id="ticking-wealth-lost" class="slim-ticker-value">₹0.00</strong><span class="slim-ticker-assume"> · at 12% p.a. on ₹100k/mo SIP</span></span>
+        </div>
+        <!-- Right: Social -->
+        <div class="slim-header-right">
+          <a href="https://www.instagram.com/wealthacumen31" target="_blank" rel="noopener" aria-label="Instagram" class="slim-header-link">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://whatsapp.com/channel/0029VaaaGehLo4hjv6EYgm01" target="_blank" rel="noopener" aria-label="WhatsApp Channel" class="slim-header-link">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+        </div>
       </div>
     </div>
     
@@ -52,7 +78,7 @@
         <li><a href="#home">Home</a></li>
         
         <li class="dropdown">
-          <a href="#about">About Us</a>
+          <a href="#about">About Us <i class="fas fa-chevron-down nav-arrow"></i></a>
           <ul class="dropdown-menu">
             <li><a href="#about">About Us</a></li>
             <li><a href="#proprietor">Proprietor</a></li>
@@ -61,28 +87,65 @@
           </ul>
         </li>
         
-        <li class="dropdown">
-          <a href="#home-section-services">Services</a>
-          <ul class="dropdown-menu">
-            <li><a href="#home-section-services">All Services</a></li>
-            <li><a href="#service-equity">Equity</a></li>
-            <li><a href="#service-mutual-funds">Mutual Funds</a></li>
-            <li><a href="#service-insurance">Insurance</a></li>
-            <li><a href="#service-etfs">ETFs (Exchange Traded Funds)</a></li>
-            <li><a href="#service-bonds">Bonds</a></li>
-            <li><a href="#service-fixed-deposit">Fixed Deposit</a></li>
-          </ul>
+        <li class="dropdown megamenu-trigger">
+          <a href="#home-section-services">Services <i class="fas fa-chevron-down nav-arrow"></i></a>
+          <div class="megamenu">
+            <div class="megamenu-grid">
+              <a href="#service-equity" class="megamenu-item">
+                <div class="megamenu-icon"><i class="fas fa-chart-line"></i></div>
+                <div class="megamenu-content">
+                  <div class="megamenu-title">Equity</div>
+                  <div class="megamenu-desc">Maximize long-term growth with stocks.</div>
+                </div>
+              </a>
+              <a href="#service-mutual-funds" class="megamenu-item">
+                <div class="megamenu-icon"><i class="fas fa-chart-pie"></i></div>
+                <div class="megamenu-content">
+                  <div class="megamenu-title">Mutual Funds</div>
+                  <div class="megamenu-desc">Professional wealth accumulation.</div>
+                </div>
+              </a>
+              <a href="#service-insurance" class="megamenu-item">
+                <div class="megamenu-icon"><i class="fas fa-shield-halved"></i></div>
+                <div class="megamenu-content">
+                  <div class="megamenu-title">Insurance</div>
+                  <div class="megamenu-desc">Safeguard your family's future.</div>
+                </div>
+              </a>
+              <a href="#service-etfs" class="megamenu-item">
+                <div class="megamenu-icon"><i class="fas fa-money-bill-trend-up"></i></div>
+                <div class="megamenu-content">
+                  <div class="megamenu-title">ETFs</div>
+                  <div class="megamenu-desc">Low-cost index market tracking.</div>
+                </div>
+              </a>
+              <a href="#service-bonds" class="megamenu-item">
+                <div class="megamenu-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                <div class="megamenu-content">
+                  <div class="megamenu-title">Bonds</div>
+                  <div class="megamenu-desc">Capital preservation and stable returns.</div>
+                </div>
+              </a>
+              <a href="#service-fixed-deposit" class="megamenu-item">
+                <div class="megamenu-icon"><i class="fas fa-piggy-bank"></i></div>
+                <div class="megamenu-content">
+                  <div class="megamenu-title">Fixed Deposit</div>
+                  <div class="megamenu-desc">Guaranteed returns, absolute safety.</div>
+                </div>
+              </a>
+            </div>
+          </div>
         </li>
         
         <li class="dropdown">
-          <a href="#ebook">Learning</a>
+          <a href="#ebook">Learning <i class="fas fa-chevron-down nav-arrow"></i></a>
           <ul class="dropdown-menu">
             <li><a href="#ebook">E-Book</a></li>
           </ul>
         </li>
         
         <li class="dropdown">
-          <a href="#">Downloads</a>
+          <a href="#">Downloads <i class="fas fa-chevron-down nav-arrow"></i></a>
           <ul class="dropdown-menu">
             <li><a href="https://www.amfiindia.com/online-center/download-factsheets" target="_blank" rel="noopener">KYC/FATCA FORMS</a></li>
             <li><a href="https://www.amfiindia.com/online-center/download-factsheets" target="_blank" rel="noopener">MF FACTSHEET</a></li>
@@ -91,16 +154,25 @@
         </li>
         
         <li><a href="#home-section-blogs">Blogs</a></li>
-        <li><a href="#home-section-contact">Contact Us</a></li>
+        <li><a href="#contact">Contact Us</a></li>
         
         <li class="dropdown">
-          <a href="#" style="background-color: var(--accent-color); color: var(--primary-color); padding: 8px 15px; border-radius: 4px; font-weight: 600;">Login/Register</a>
+          <a href="#" class="nav-login-btn">Login/Register <i class="fas fa-chevron-down nav-arrow"></i></a>
           <ul class="dropdown-menu">
             <li><a href="https://angel-one.onelink.me/Wjgr/h9fay40r" target="_blank" rel="noopener"><i class="fas fa-chart-line"></i> App Login</a></li>
             <li><a href="https://angel-one.onelink.me/Wjgr/wcqvcyi6" target="_blank" rel="noopener"><i class="fas fa-wallet"></i> Demat-Free MF Login</a></li>
           </ul>
         </li>
+        <!-- Mobile-only Call CTA in Drawer -->
+        <li class="mobile-only-call">
+          <a href="tel:9325227357" class="drawer-call-btn" aria-label="Call Atharva"><i class="fas fa-phone-alt"></i></a>
+        </li>
       </ul>
+      
+      <!-- Persistent Nav CTA -->
+      <div class="nav-cta-container">
+        <a href="#contact" class="nav-cta-btn">Book Free Consultation</a>
+      </div>
       
       <!-- Mobile hamburger toggle -->
       <button class="menu-toggle" id="menuToggleBtn" aria-label="Toggle Menu">
@@ -120,16 +192,129 @@
     <div id="home-view" class="app-view active-view">
       
       <!-- SECTION 1 — HERO / BANNER -->
-      <section class="hero-section" id="hero" style="background-image: linear-gradient(135deg, rgba(10, 31, 68, 0.45), rgba(5, 18, 43, 0.75)), url('images/hero_bg.jpg');">
-        <div class="container" style="display: flex; width: 100%;">
-          <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
-            <span class="hero-badge">AMFI Registered Mutual Fund Distributor</span>
-            <h1 class="hero-title">Build Wealth<br>with <span class="accent-text-color">Clarity.</span></h1>
-            <div class="hero-tagline-badge">Smart Investing, Simplified.</div>
-            <p class="hero-desc">Harness disciplined asset allocation, expert market insights, and secure technology to multiply your wealth systematically. Your journey to financial independence starts here.</p>
-            <div class="hero-actions">
-              <a href="https://wealthacumen.in/diy-do-it-yourself/" target="_blank" rel="noopener" class="btn btn-primary">Start Investing Today <i class="fas fa-arrow-right"></i></a>
-              <a href="https://wealthacumen.in/contact-01/" target="_blank" rel="noopener" class="btn btn-secondary">Book Free Consultation</a>
+      <section class="hero-section" id="hero" style="position: relative; overflow: hidden;">
+        <!-- Animated Interactive Canvas Background -->
+        <canvas id="hero-particles" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; opacity: 0.2;"></canvas>
+        
+        <!-- Growth Thread SVG — brand motif, thin animated gold line -->
+        <svg class="growth-thread" viewBox="0 0 1200 600" preserveAspectRatio="none" aria-hidden="true">
+          <path class="growth-thread-path" d="M -50 500 C 200 480 400 320 600 280 S 900 200 1250 80" 
+                stroke="url(#threadGrad)" stroke-width="1.5" fill="none" opacity="0.5"/>
+          <defs>
+            <linearGradient id="threadGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="rgba(198,149,46,0)" />
+              <stop offset="40%" stop-color="rgba(198,149,46,0.6)" />
+              <stop offset="100%" stop-color="rgba(198,149,46,0)" />
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <div class="container" style="position: relative; z-index: 2;">
+          <div class="hero-grid">
+            <!-- Left Column: Content -->
+            <div class="hero-content" id="hero-content">
+              <!-- EYEBROW: AMFI authority line -->
+              <span class="hero-eyebrow">AMFI REGISTERED MUTUAL FUND DISTRIBUTOR · ARN 247468</span>
+              
+              <!-- HEADLINE: 'Not Guesswork.' in Signal Gold per brief -->
+              <h1 class="hero-title">Build <img src="images/growth_accent.png" alt="Growth" class="inline-headline-image"> Wealth,<br><span class="gold">Not Guesswork.</span></h1>
+              
+              <p class="hero-subhead">Disciplined SIPs, transparent advisory, and a plan built around your goals — not ours.</p>
+              
+              <!-- LIVE TICKER BLOCK: Moved INTO hero, large and prominent per brief Section 8 -->
+              <div class="hero-ticker-block">
+                <div class="hero-ticker-label">Cost of Waiting — Every Second Counts</div>
+                <span class="hero-ticker-value" id="hero-ticker-display">₹0.00</span>
+                <div class="hero-ticker-assumption">at 12% p.a. on a ₹1,00,000/mo SIP · mathematically verifiable</div>
+              </div>
+              
+              <!-- COST OF DELAY: Inline editorial, no box per brief Section 7 -->
+              <div class="hero-delay-line">
+                <i class="fas fa-hourglass-half delay-icon"></i>
+                <span>Delaying by just 5 years could cost you up to <strong class="delay-amount">₹1.85 Crores</strong> in compounded wealth.</span>
+              </div>
+              
+              <!-- CTA HIERARCHY: 1 dominant filled-gold pill + 1 quiet secondary text link -->
+              <div class="hero-actions">
+                <a href="#diy" class="btn btn-primary">Start Your SIP Today <i class="fas fa-arrow-right"></i></a>
+                <a href="#contact" class="hero-cta-secondary">Book Free Consultation <i class="fas fa-chevron-right"></i></a>
+              </div>
+              
+              <div class="hero-microcopy">
+                No hidden fees · NISM Certified Advisor · Official Angel One Channel Partner
+              </div>
+            </div>
+            
+            <!-- Right Column: Signature Compounding Visualizer -->
+            <div class="hero-chart-column" data-aos="fade-left" data-aos-duration="1200">
+              <div class="hero-chart-container" id="hero-chart-panel">
+                <svg class="hero-svg" viewBox="0 0 500 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Grid Lines -->
+                  <line x1="50" y1="50" x2="450" y2="50" stroke="rgba(255, 255, 255, 0.05)" stroke-dasharray="4 4" />
+                  <line x1="50" y1="125" x2="450" y2="125" stroke="rgba(255, 255, 255, 0.05)" stroke-dasharray="4 4" />
+                  <line x1="50" y1="200" x2="450" y2="200" stroke="rgba(255, 255, 255, 0.05)" stroke-dasharray="4 4" />
+                  
+                  <!-- Y values — Space Grotesk for precision -->
+                  <text x="15" y="204" fill="rgba(255,255,255,0.4)" font-family="Space Grotesk, sans-serif" font-size="10">₹0</text>
+                  <text x="15" y="129" fill="rgba(255,255,255,0.4)" font-family="Space Grotesk, sans-serif" font-size="10">₹25L</text>
+                  <text x="15" y="54" fill="rgba(255,255,255,0.4)" font-family="Space Grotesk, sans-serif" font-size="10">₹50L</text>
+
+                  <!-- Filled area under curve -->
+                  <path id="heroArea" d="M 50 200 Q 250 190 450 50 L 450 200 Z" fill="url(#heroAreaGrad)" style="opacity: 0; transition: opacity 0.5s ease-out 1.2s;" />
+                  
+                  <!-- Curve path (Growth Thread in chart) -->
+                  <path id="heroCurve" d="M 50 200 Q 250 190 450 50" stroke="var(--wa-growth-teal)" stroke-width="3" stroke-linecap="round" fill="none" />
+                  
+                  <!-- Today dot -->
+                  <circle cx="50" cy="200" r="5" fill="var(--wa-signal-gold)" />
+                  <text x="45" y="218" fill="var(--wa-signal-gold)" font-family="Space Grotesk, sans-serif" font-size="9" font-weight="600">Today</text>
+                  
+                  <!-- Final Value Label — specific non-rounded number per brief Section 6 -->
+                  <g id="finalValueLabel" style="opacity: 0; transition: opacity 0.5s ease-out 1.2s;">
+                    <rect x="360" y="12" width="90" height="26" rx="3" fill="rgba(11,27,51,0.8)" stroke="rgba(198,149,46,0.4)" stroke-width="1"/>
+                    <text x="367" y="30" fill="var(--wa-signal-gold)" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="600">₹50,45,755</text>
+                  </g>
+
+                  <defs>
+                    <linearGradient id="heroAreaGrad" x1="250" y1="50" x2="250" y2="200" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="var(--wa-growth-teal)" stop-opacity="0.2" />
+                      <stop offset="100%" stop-color="var(--wa-growth-teal)" stop-opacity="0" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                
+                <!-- Chart Value Overlay -->
+                <div class="floating-glass-card" id="floatingGlassCard">
+                  <div class="card-eyebrow">Compounding Value</div>
+                  <div class="card-value" id="heroCountUp">₹50,45,755</div>
+                  <div class="card-meta">₹10,000/mo @ 12% in 15 yrs</div>
+                  <div class="card-action">Click to customize <i class="fas fa-arrow-right"></i></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Trust Strip: Dividers only, no boxes per brief -->
+          <div class="trust-strip" data-aos="fade-up" data-aos-delay="200">
+            <div class="trust-badge">
+              <i class="fas fa-certificate"></i>
+              <span>ARN 247468</span>
+            </div>
+            <div class="trust-badge">
+              <i class="fas fa-user-shield"></i>
+              <span>NISM Certified</span>
+            </div>
+            <div class="trust-badge">
+              <i class="fas fa-handshake"></i>
+              <span>Angel One Channel Partner</span>
+            </div>
+            <div class="trust-badge">
+              <i class="fas fa-users"></i>
+              <span>150M+ Demat Accounts</span>
+            </div>
+            <div class="trust-badge">
+              <i class="fas fa-building"></i>
+              <span>11 AMC Partners</span>
             </div>
           </div>
         </div>
@@ -141,34 +326,46 @@
           <span class="section-label">Why Choose Us</span>
           <h2 class="section-title">Doing the right investment at the right time</h2>
           
-          <div class="about-grid">
-            <div class="cards-container">
-              
-              <!-- Card 1 -->
-              <div class="consulting-card" data-aos="fade-right" data-aos-delay="100">
+          <div class="roadmap-flow-container">
+            <!-- Central SVG flowing connector line -->
+            <svg class="roadmap-flow-line" viewBox="0 0 100 800" preserveAspectRatio="none">
+              <path class="roadmap-flow-path" d="M50 0 Q20 200 80 400 T50 800" stroke="rgba(192, 138, 46, 0.15)" stroke-width="2" fill="none" stroke-dasharray="6 6"></path>
+            </svg>
+
+            <!-- Flow Item 1: Left side -->
+            <div class="roadmap-step step-left" data-aos="fade-right">
+              <div class="roadmap-dot"><i class="fas fa-sliders"></i></div>
+              <div class="roadmap-content">
+                <span class="roadmap-num">01</span>
                 <h3>Personalized Advisory</h3>
                 <p>Tailored financial strategies designed to meet your unique risk profile and long-term goals.</p>
-                <a href="#about" class="read-more-link">Explore Approach <i class="fas fa-arrow-right"></i></a>
+                <div class="roadmap-psychology-stat"><i class="fas fa-bolt" style="color: var(--wa-compounding-gold); margin-right: 5px;"></i> Compound potential: high</div>
+                <a href="#about" class="roadmap-btn">Explore Approach <i class="fas fa-arrow-right"></i></a>
               </div>
-              
-              <!-- Card 2 -->
-              <div class="consulting-card" data-aos="fade-right" data-aos-delay="200">
+            </div>
+
+            <!-- Flow Item 2: Right side -->
+            <div class="roadmap-step step-right" data-aos="fade-left">
+              <div class="roadmap-dot"><i class="fas fa-bullseye"></i></div>
+              <div class="roadmap-content">
+                <span class="roadmap-num">02</span>
                 <h3>Our Mission</h3>
                 <p>To empower investors with disciplined, data-driven frameworks for sustainable wealth creation.</p>
-                <a href="#about" class="read-more-link">Read Mission <i class="fas fa-arrow-right"></i></a>
+                <div class="roadmap-psychology-stat"><i class="fas fa-calendar-check" style="color: var(--wa-growth-teal); margin-right: 5px;"></i> Horizon guidance: 5+ Years</div>
+                <a href="#about" class="roadmap-btn">Read Mission <i class="fas fa-arrow-right"></i></a>
               </div>
-              
-              <!-- Card 3 -->
-              <div class="consulting-card" data-aos="fade-right" data-aos-delay="300">
+            </div>
+
+            <!-- Flow Item 3: Left side -->
+            <div class="roadmap-step step-left" data-aos="fade-right">
+              <div class="roadmap-dot"><i class="fas fa-handshake"></i></div>
+              <div class="roadmap-content">
+                <span class="roadmap-num">03</span>
                 <h3>Absolute Transparency</h3>
                 <p>Zero hidden fees. We believe in ethical, compliant, and fully transparent wealth management.</p>
-                <a href="#about" class="read-more-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                <div class="roadmap-psychology-stat"><i class="fas fa-shield-alt" style="color: var(--wa-growth-teal); margin-right: 5px;"></i> AMFI Registered MFD model</div>
+                <a href="#about" class="roadmap-btn">Learn More <i class="fas fa-arrow-right"></i></a>
               </div>
-              
-            </div>
-            
-            <div class="about-image" data-aos="fade-left">
-              <img src="images/why_choose_us.png" alt="Doing Right Investment Banner">
             </div>
           </div>
         </div>
@@ -177,151 +374,227 @@
       <!-- SECTION 3 — OUR SERVICES -->
       <section class="section section-bg" id="services">
         <div class="container">
+          <span class="section-label">Our Offerings</span>
           <h2 class="section-title">Our Services</h2>
           
-          <div class="services-grid">
+          <!-- Groww-inspired Search-First Explorer Bar -->
+          <div class="search-explorer-container" data-aos="fade-up">
+            <div class="search-bar-wrapper">
+              <i class="fas fa-search search-bar-icon"></i>
+              <input type="text" id="fund-search-input" placeholder="Search mutual funds, stocks, ETFs (e.g., Nippon Large Cap, Gold ETF)..." autocomplete="off">
+              <button class="search-clear-btn" id="search-clear-btn" style="display: none;"><i class="fas fa-times"></i></button>
+            </div>
             
-            <!-- Service 1: Equity -->
-            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-              <div class="service-icon">
+            <!-- Trending Suggestions Dropdown (hidden by default) -->
+            <div class="search-suggestions-dropdown" id="search-suggestions">
+              <div class="suggestions-section">
+                <h4><i class="fas fa-fire" style="color: var(--wa-compounding-gold); margin-right: 5px;"></i> Trending Searches on Wealth Acumen</h4>
+                <div class="suggestion-tags">
+                  <span class="suggestion-tag" data-search="Nippon India Large Cap">Nippon Large Cap</span>
+                  <span class="suggestion-tag" data-search="Parag Parikh Flexi Cap">Parag Parikh Flexi Cap</span>
+                  <span class="suggestion-tag" data-search="SBI Small Cap Fund">SBI Small Cap</span>
+                  <span class="suggestion-tag" data-search="HDFC Mid-Cap Opportunities">HDFC Mid-Cap</span>
+                  <span class="suggestion-tag" data-search="Gold BeES ETF">Gold BeES ETF</span>
+                  <span class="suggestion-tag" data-search="ICICI Prudential Nifty 50">ICICI Nifty 50</span>
+                </div>
+              </div>
+              <div class="suggestions-results" id="search-results-box" style="display: none;">
+                <!-- Live matches populated by JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Services Comparison Table -->
+          <div class="comparison-table-wrapper" data-aos="fade-up">
+            <h3 class="comparison-table-title">Compare Investment Pathways</h3>
+            <div class="table-scroll">
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Asset Class</th>
+                    <th>Best For</th>
+                    <th>Risk Profile</th>
+                    <th>Typical Horizon</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="td-highlight">Mutual Funds (SIP)</td>
+                    <td>Long-term, disciplined goal-building</td>
+                    <td><span class="risk-badge moderate">Moderate</span></td>
+                    <td>5+ years</td>
+                  </tr>
+                  <tr>
+                    <td class="td-highlight">Equity</td>
+                    <td>Hands-on investors comfortable with volatility</td>
+                    <td><span class="risk-badge high">High</span></td>
+                    <td>5+ years</td>
+                  </tr>
+                  <tr>
+                    <td class="td-highlight">ETFs</td>
+                    <td>Low-cost, diversified market exposure</td>
+                    <td><span class="risk-badge moderate">Moderate</span></td>
+                    <td>3+ years</td>
+                  </tr>
+                  <tr>
+                    <td class="td-highlight">Bonds</td>
+                    <td>Capital preservation with steady income</td>
+                    <td><span class="risk-badge low-moderate">Low–Moderate</span></td>
+                    <td>1–5 years</td>
+                  </tr>
+                  <tr>
+                    <td class="td-highlight">Fixed Deposit</td>
+                    <td>Guaranteed, risk-free returns</td>
+                    <td><span class="risk-badge low">Low</span></td>
+                    <td>Flexible</td>
+                  </tr>
+                  <tr>
+                    <td class="td-highlight">Insurance</td>
+                    <td>Protecting the plan, not growing it</td>
+                    <td><span class="risk-badge low">—</span></td>
+                    <td>Long-term</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="comparison-table-note">
+              <i class="fas fa-info-circle"></i> Use the search explorer above or the interactive dashboard below to analyze individual asset details.
+            </div>
+          </div>
+          
+          <!-- Asymmetric Interactive Asset Explorer Workspace -->
+          <div class="asset-explorer-workspace" data-aos="fade-up">
+            <!-- Left Panel: Sleek Tabbed Selection -->
+            <div class="asset-tabs-panel">
+              <button class="asset-tab active" data-asset="equity">
+                <span class="tab-indicator"></span>
                 <i class="fas fa-chart-line"></i>
-              </div>
-              <h3>Equity</h3>
-              <p>Maximize growth potential with expert-backed direct equity investments and real-time market insights.</p>
-              <a href="#service-equity" class="btn btn-dark">Learn More</a>
-            </div>
-            
-            <!-- Service 2: Mutual Funds -->
-            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-              <div class="service-icon">
+                <span class="tab-label">Equity</span>
+              </button>
+              <button class="asset-tab" data-asset="mutual-funds">
+                <span class="tab-indicator"></span>
                 <i class="fas fa-chart-pie"></i>
-              </div>
-              <h3>Mutual Funds</h3>
-              <p>Achieve disciplined wealth generation through diversified, professionally managed mutual fund portfolios.</p>
-              <a href="#service-mutual-funds" class="btn btn-dark">Learn More</a>
-            </div>
-            
-            <!-- Service 3: Insurance -->
-            <div class="service-card" data-aos="fade-up" data-aos-delay="300">
-              <div class="service-icon">
-                <i class="fas fa-shield-halved"></i>
-              </div>
-              <h3>Insurance</h3>
-              <p>Secure your family's future with comprehensive life and health insurance coverage tailored to your needs.</p>
-              <a href="#service-insurance" class="btn btn-dark">Learn More</a>
-            </div>
-            
-            <!-- Service 4: ETFs -->
-            <div class="service-card" data-aos="fade-up" data-aos-delay="400">
-              <div class="service-icon">
+                <span class="tab-label">Mutual Funds</span>
+              </button>
+              <button class="asset-tab" data-asset="etfs">
+                <span class="tab-indicator"></span>
                 <i class="fas fa-money-bill-trend-up"></i>
-              </div>
-              <h3>ETFs</h3>
-              <p>Gain broad market exposure with highly liquid, cost-effective Exchange Traded Funds.</p>
-              <a href="#service-etfs" class="btn btn-dark">Learn More</a>
-            </div>
-            
-            <!-- Service 5: Bonds -->
-            <div class="service-card" data-aos="fade-up" data-aos-delay="500">
-              <div class="service-icon">
+                <span class="tab-label">Exchange Traded Funds (ETFs)</span>
+              </button>
+              <button class="asset-tab" data-asset="bonds">
+                <span class="tab-indicator"></span>
                 <i class="fas fa-file-invoice-dollar"></i>
-              </div>
-              <h3>Bonds</h3>
-              <p>Preserve capital and secure predictable income streams with top-rated corporate and government bonds.</p>
-              <a href="#service-bonds" class="btn btn-dark">Learn More</a>
-            </div>
-            
-            <!-- Service 6: Fixed Deposit -->
-            <div class="service-card" data-aos="fade-up" data-aos-delay="600">
-              <div class="service-icon">
+                <span class="tab-label">Bonds & Debt Securities</span>
+              </button>
+              <button class="asset-tab" data-asset="fixed-deposit">
+                <span class="tab-indicator"></span>
                 <i class="fas fa-piggy-bank"></i>
-              </div>
-              <h3>Fixed Deposit</h3>
-              <p>Earn guaranteed, risk-free returns from India's most trusted financial institutions.</p>
-              <a href="#service-fixed-deposit" class="btn btn-dark">Learn More</a>
+                <span class="tab-label">Fixed Deposits (FDs)</span>
+              </button>
+              <button class="asset-tab" data-asset="insurance">
+                <span class="tab-indicator"></span>
+                <i class="fas fa-shield-halved"></i>
+                <span class="tab-label">Insurance Policies</span>
+              </button>
             </div>
             
+            <!-- Right Panel: Live Morphing Dashboard Card -->
+            <div class="asset-dashboard-card" id="asset-dashboard">
+              <div class="dashboard-header">
+                <span class="dashboard-eyebrow" id="dash-eyebrow">⚡ Compound Potential: High</span>
+                <h3 id="dash-title">Equity Investment Solutions</h3>
+                <p class="dashboard-best-for" id="dash-best-for">Best for: Hands-on investors comfortable with volatility</p>
+              </div>
+              
+              <div class="dashboard-body">
+                <p id="dash-text">Maximize long-term capital growth through direct stock market participation. Direct equity investing allows you to own shares in leading corporations, capturing compounding dividends and price appreciation. Access institutional trading terminals via Angel One.</p>
+                
+                <div class="dashboard-visuals">
+                  <div class="metric-group">
+                    <span class="metric-label">Risk Exposure</span>
+                    <div class="metric-bar-container">
+                      <div class="metric-bar-fill" id="dash-risk-bar" style="width: 85%; background-color: var(--wa-rust-orange);"></div>
+                    </div>
+                    <span class="metric-value" id="dash-risk-value">High (85%)</span>
+                  </div>
+                  
+                  <div class="metric-group">
+                    <span class="metric-label">Typical Horizon Target</span>
+                    <div class="metric-bar-container">
+                      <div class="metric-bar-fill" id="dash-return-bar" style="width: 80%; background-color: var(--wa-growth-teal);"></div>
+                    </div>
+                    <span class="metric-value" id="dash-return-value">5+ Years</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="dashboard-footer">
+                <a href="#service-equity" class="btn btn-dark" id="dash-learn-btn" style="padding: 12px 24px; font-size: 14px;">Learn More Details</a>
+                <a href="https://angel-one.onelink.me/Wjgr/h9fay40r" target="_blank" rel="noopener" class="btn btn-primary" id="dash-diy-btn" style="padding: 12px 24px; font-size: 14px;">Start Online Account <i class="fas fa-chevron-right" style="margin-left: 8px;"></i></a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- SECTION 4 — WE BRING THE BEST THINGS FOR YOU -->
-      <section class="section" id="best-features">
+      <section class="section" id="best-features" style="background: var(--wa-mist-white);">
         <div class="container">
-          <span class="section-label">Industries</span>
-          <h2 class="section-title">We bring the best things For you</h2>
+          <span class="section-label">Our Principles</span>
+          <h2 class="section-title">Five Promises We Keep to Every Client</h2>
           
           <div class="features-grid-wrapper">
-            <!-- Top Row: 3 cards -->
+            <!-- Row 1 -->
             <div class="features-row-top">
-              
               <!-- Feature 1 -->
-              <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="feature-card-header">
-                  <div class="feature-icon-badge">
-                    <i class="fas fa-sliders"></i>
-                  </div>
+              <div class="feature-card" data-aos="fade-up" data-aos-delay="0">
+                <div class="feature-icon-badge"><i class="fas fa-sliders"></i></div>
+                <div>
                   <h3>Personalized Strategies</h3>
+                  <p>Your financial goals, risk appetite, and investment horizon shape your custom wealth creation plan. No one-size-fits-all.</p>
                 </div>
-                <p>We don't believe in one-size-fits-all. Your financial goals, risk appetite, and investment time horizon shape your custom wealth creation plan.</p>
               </div>
-              
               <!-- Feature 2 -->
-              <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="feature-card-header">
-                  <div class="feature-icon-badge">
-                    <i class="fas fa-bullseye"></i>
-                  </div>
-                  <h3>Goal-Oriented & Disciplined</h3>
+              <div class="feature-card" data-aos="fade-up" data-aos-delay="80">
+                <div class="feature-icon-badge"><i class="fas fa-bullseye"></i></div>
+                <div>
+                  <h3>Goal-Oriented &amp; Disciplined</h3>
+                  <p>Long-term wealth creation through disciplined SIPs, designed to generate consistent, compounding returns over time.</p>
                 </div>
-                <p>We focus on long-term wealth creation through disciplined, systematic investment approaches (SIPs) designed to generate consistent returns.</p>
               </div>
-              
               <!-- Feature 3 -->
-              <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="feature-card-header">
-                  <div class="feature-icon-badge">
-                    <i class="fas fa-book-open-reader"></i>
-                  </div>
+              <div class="feature-card" data-aos="fade-up" data-aos-delay="160">
+                <div class="feature-icon-badge"><i class="fas fa-book-open-reader"></i></div>
+                <div>
                   <h3>Education-First Approach</h3>
+                  <p>We empower clients with financial literacy. An informed investor is a confident investor who makes wiser, fearless decisions.</p>
                 </div>
-                <p>We empower our clients with financial literacy. We believe that an informed investor is a confident investor who makes wiser decisions.</p>
               </div>
-              
             </div>
-            
-            <!-- Bottom Row: 2 cards centered -->
+            <!-- Row 2 -->
             <div class="features-row-bottom">
-              
               <!-- Feature 4 -->
-              <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
-                <div class="feature-card-header">
-                  <div class="feature-icon-badge">
-                    <i class="fas fa-scale-balanced"></i>
-                  </div>
-                  <h3>Ethical & Transparent Advisory</h3>
+              <div class="feature-card" data-aos="fade-up" data-aos-delay="240">
+                <div class="feature-icon-badge"><i class="fas fa-scale-balanced"></i></div>
+                <div>
+                  <h3>Ethical &amp; Transparent Advisory</h3>
+                  <p>No hidden charges, no misleading promises. Just honest, AMFI-compliant, transparent guidance built on genuine trust.</p>
                 </div>
-                <p>Trust is the foundation of our relationship. No hidden charges, no misleading promises — just honest, compliant, and transparent guidance.</p>
               </div>
-              
               <!-- Feature 5 -->
-              <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
-                <div class="feature-card-header">
-                  <div class="feature-icon-badge">
-                    <i class="fas fa-headset"></i>
-                  </div>
+              <div class="feature-card" data-aos="fade-up" data-aos-delay="320">
+                <div class="feature-icon-badge"><i class="fas fa-headset"></i></div>
+                <div>
                   <h3>Continuous Support</h3>
+                  <p>From hassle-free onboarding to periodic portfolio reviews — we are always available throughout your financial journey.</p>
                 </div>
-                <p>From hassle-free onboarding to periodic portfolio reviews, we are always available to assist and support you throughout your financial journey.</p>
               </div>
-              
             </div>
           </div>
         </div>
       </section>
 
       <!-- SECTION 5 — MARKET GROWTH STAT -->
-      <section class="section section-bg" id="growth-stat">
+      <section class="section" id="growth-stat">
         <div class="container">
           <div class="stats-layout">
             <div class="stats-info" data-aos="fade-right">
@@ -329,14 +602,14 @@
               <h3>Year-on-year, more investors are entering the market.</h3>
               <p>India is experiencing an investment revolution. The growing participation of retail investors in equity and mutual funds signals robust trust in the Indian economy. By starting early and maintaining discipline, you too can capture this market momentum to compound your hard-earned wealth.</p>
               
-              <div style="display: flex; gap: 30px;">
+              <div class="stats-numbers-container" style="display: flex; gap: 40px; margin-top: 30px;">
                 <div>
-                  <h4 style="font-size: 32px; color: var(--accent-color);">150M+</h4>
-                  <p style="margin: 0; font-size: 13px;">Demat Accounts Opened</p>
+                  <div class="stats-number-display">150M+</div>
+                  <div class="stats-number-label">Demat Accounts Opened</div>
                 </div>
                 <div>
-                  <h4 style="font-size: 32px; color: var(--primary-color);">15%+</h4>
-                  <p style="margin: 0; font-size: 13px;">YoY Retail Growth Rate</p>
+                  <div class="stats-number-display">15%+</div>
+                  <div class="stats-number-label">YoY Retail Growth Rate</div>
                 </div>
               </div>
             </div>
@@ -351,75 +624,31 @@
         </div>
       </section>
 
-      <!-- SECTION 6 — TESTIMONIALS -->
-      <section class="section" id="testimonials">
+      <!-- SECTION 6 — TESTIMONIALS: Editorial Spotlight -->
+      <!-- Per brief Section 7: single rotating pull-quote in Fraunces italic, NOT bordered cards -->
+      <section class="section" id="testimonials" style="background: var(--wa-mist-white);">
         <div class="container">
-          <span class="section-label">Testimonials</span>
-          <h2 class="section-title">Our Happy & Satisfied Clients</h2>
+          <span class="section-label">What Clients Say</span>
+          <h2 class="section-title">Words From Those We've Guided</h2>
           
-          <div class="swiper testimonials-slider" data-aos="fade-up">
-            <div class="swiper-wrapper">
-              
-              <!-- Testimonial 1 -->
-              <div class="swiper-slide">
-                <div class="testimonial-card">
-                  <p class="testimonial-text">"My sincere thanks to Mr. Atharva of Wealth Acumen for providing the knowledge of stock market in a very simple but clear ways by using different charts and different methods. Your knowledge and clear explanations have significantly enhanced my understanding of the subject. I would recommend Wealth Acumen who wants to learn trading. Thank you for your service."</p>
-                  <div class="testimonial-author">
-                    <div class="author-avatar">MK</div>
-                    <div class="author-info">
-                      <h4>Manisha Kahate</h4>
-                      <span>Senior Lecturer</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Testimonial 2 -->
-              <div class="swiper-slide">
-                <div class="testimonial-card">
-                  <p class="testimonial-text">"Wealth Acumen helped me understand how knowledge and psychology play a key role in investing. I applied what I learned and have already started seeing positive results. Atharva's guidance makes complex investment products simple to understand."</p>
-                  <div class="testimonial-author">
-                    <div class="author-avatar">RG</div>
-                    <div class="author-info">
-                      <h4>Rupesh Gupta</h4>
-                      <span>IT Professional</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Testimonial 3 -->
-              <div class="swiper-slide">
-                <div class="testimonial-card">
-                  <p class="testimonial-text">"Mr. Atharva is a trustworthy advisor who provides investment guidance based on individual needs. He also helped me recover an old frozen demat account with another broker, where I had lost hope of getting my money back. I'm truly happy with his support and work."</p>
-                  <div class="testimonial-author">
-                    <div class="author-avatar">NT</div>
-                    <div class="author-info">
-                      <h4>Nandita Tamhane</h4>
-                      <span>Govt Employee</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Testimonial 4 -->
-              <div class="swiper-slide">
-                <div class="testimonial-card">
-                  <p class="testimonial-text">"It is very nice experience and journey of investment and trading with you since last 2 years. Learned a lot with basics in trading and then via systematic investment plan with SIP. Your knowhow and experience worked for all of us in our family."</p>
-                  <div class="testimonial-author">
-                    <div class="author-avatar">SJ</div>
-                    <div class="author-info">
-                      <h4>Shekhar Jogwar</h4>
-                      <span>Engineer</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
+          <div class="testimonial-spotlight" data-aos="fade-up">
+            <span class="testimonial-quote-mark">“</span>
+            
+            <!-- All 4 testimonials verbatim — content frozen per brief -->
+            <p class="testimonial-quote-text" id="testimonial-text">
+              My sincere thanks to Mr. Atharva of Wealth Acumen for providing the knowledge of stock market in a very simple but clear ways by using different charts and different methods. Your knowledge and clear explanations have significantly enhanced my understanding of the subject.
+            </p>
+            <div class="testimonial-attribution" id="testimonial-attribution">
+              Manisha Kahate — Senior Lecturer
             </div>
             
-            <!-- Swiper Pagination -->
-            <div class="swiper-pagination"></div>
+            <!-- Navigation dots -->
+            <div class="testimonial-nav-dots" id="testimonial-dots">
+              <div class="testimonial-dot active" data-index="0"></div>
+              <div class="testimonial-dot" data-index="1"></div>
+              <div class="testimonial-dot" data-index="2"></div>
+              <div class="testimonial-dot" data-index="3"></div>
+            </div>
           </div>
         </div>
       </section>
@@ -434,7 +663,7 @@
               <p>This chart shows how a consistent investment — say through SIPs — can grow exponentially over time. With just ₹2.2 lakhs in the early years, your wealth can potentially grow to over ₹18.5 lakhs in 15 years!</p>
               <strong>📈 Compounding rewards patience. The longer you stay invested, the greater your returns.</strong>
               <p>At Wealth Acumen, we help you harness this power through disciplined, goal-based investing. Whether you're planning for retirement, your child's higher education, or financial independence — starting today makes all the difference.</p>
-              <a href="#home-section-contact" class="btn btn-dark" style="margin-top: 15px;">CONTACT US</a>
+              <a href="#contact" class="btn btn-dark" style="margin-top: 15px;">CONTACT US</a>
             </div>
             
             <!-- Interactive SIP Calculator -->
@@ -473,15 +702,15 @@
               <!-- Results -->
               <div class="sip-results">
                 <div class="result-box">
-                  <span>Invested Amount</span>
+                  <span>Total Invested</span>
                   <p id="resultInvested">₹18,00,000</p>
                 </div>
                 <div class="result-box">
-                  <span>Est. Returns</span>
+                  <span>Wealth Gained</span>
                   <p id="resultGained">₹32,45,755</p>
                 </div>
                 <div class="result-box highlight">
-                  <span>Total Value</span>
+                  <span>Future Value</span>
                   <p id="resultTotalValue">₹50,45,755</p>
                 </div>
               </div>
@@ -629,66 +858,6 @@
           </div>
         </div>
       </section>
-
-      <!-- SECTION 10 — REQUEST A CALL BACK FORM -->
-      <section class="section" id="contact">
-        <div class="container">
-          <div class="contact-layout">
-            <div class="contact-image" data-aos="fade-right">
-              <img src="images/contact_banner.png" alt="Contact Us Banner Image">
-            </div>
-            
-            <div class="contact-form-wrapper" data-aos="fade-left">
-              <span class="section-label" style="text-align: left;">REQUEST A CALL BACK</span>
-              <h3>We are always ahead — Professional Solutions for Your Wealth</h3>
-              
-              <form id="callbackForm">
-                <div class="form-group">
-                  <label for="fullName">Full Name *</label>
-                  <input type="text" id="fullName" class="form-control" placeholder="Enter your full name" required>
-                </div>
-                
-                <div class="form-group">
-                  <label for="email">Email *</label>
-                  <input type="email" id="email" class="form-control" placeholder="Enter your email address" required>
-                </div>
-                
-                <div class="form-group">
-                  <label for="phone">Phone Number *</label>
-                  <input type="tel" id="phone" class="form-control" placeholder="Enter your mobile number" required>
-                </div>
-                
-                <div class="form-group">
-                  <label>I would like to discuss: *</label>
-                  <div class="form-radio-group">
-                    <label class="radio-option">
-                      <input type="radio" name="discussTopic" value="Equity" checked> Equity
-                    </label>
-                    <label class="radio-option">
-                      <input type="radio" name="discussTopic" value="Mutual Fund"> Mutual Fund
-                    </label>
-                    <label class="radio-option">
-                      <input type="radio" name="discussTopic" value="IPO"> IPO
-                    </label>
-                    <label class="radio-option">
-                      <input type="radio" name="discussTopic" value="Bonds"> Bonds
-                    </label>
-                    <label class="radio-option">
-                      <input type="radio" name="discussTopic" value="Insurance"> Insurance
-                    </label>
-                    <label class="radio-option">
-                      <input type="radio" name="discussTopic" value="Fixed Deposit"> Fixed Deposit
-                    </label>
-                  </div>
-                </div>
-                
-                <button type="submit" class="btn btn-dark" style="width: 100%; padding: 15px; margin-top: 15px;">REQUEST A CALL BACK</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-
     </div>
 
     <!-- =======================================================
@@ -716,21 +885,21 @@
             <div>
               <h2 style="font-size: 26px; margin-bottom: 20px; border-bottom: 2px solid var(--accent-color); padding-bottom: 10px;">Why Choose Wealth Acumen</h2>
               
-              <div style="gap: 20px; margin-top: 25px;" class="services-grid">
+              <div class="services-grid" style="gap: 20px; margin-top: 25px;">
                 <!-- Card 1 -->
-                <div class="consulting-card" style="margin: 0; height: 100%;">
-                  <h3 style="font-size: 18px;"><i class="fas fa-bullseye" style="color: var(--accent-color); margin-right: 8px;"></i> Personalized Strategies</h3>
-                  <p style="margin-top: 10px; font-size: 14px;">We don't believe in one-size-fits-all. Your goals, risk appetite, and time horizon shape your investment plan.</p>
+                <div class="consulting-card">
+                  <h3><i class="fas fa-bullseye card-icon"></i> Personalized Strategies</h3>
+                  <p>We don't believe in one-size-fits-all. Your goals, risk appetite, and time horizon shape your investment plan.</p>
                 </div>
                 <!-- Card 2 -->
-                <div class="consulting-card" style="margin: 0; height: 100%;">
-                  <h3 style="font-size: 18px;"><i class="fas fa-chart-line" style="color: var(--accent-color); margin-right: 8px;"></i> Goal-Oriented Investing</h3>
-                  <p style="margin-top: 10px; font-size: 14px;">We focus on long-term wealth creation through disciplined, systematic investment approaches designed to generate consistent returns.</p>
+                <div class="consulting-card">
+                  <h3><i class="fas fa-chart-line card-icon"></i> Goal-Oriented Investing</h3>
+                  <p>We focus on long-term wealth creation through disciplined, systematic investment approaches designed to generate consistent returns.</p>
                 </div>
                 <!-- Card 3 -->
-                <div class="consulting-card" style="margin: 0; height: 100%;">
-                  <h3 style="font-size: 18px;"><i class="fas fa-headset" style="color: var(--accent-color); margin-right: 8px;"></i> Continuous Support</h3>
-                  <p style="margin-top: 10px; font-size: 14px;">From onboarding to portfolio reviews — we're always available to support your investment journey, every step of the way.</p>
+                <div class="consulting-card">
+                  <h3><i class="fas fa-headset card-icon"></i> Continuous Support</h3>
+                  <p>From onboarding to portfolio reviews — we're always available to support your investment journey, every step of the way.</p>
                 </div>
               </div>
             </div>
@@ -837,7 +1006,7 @@
               </ul>
               
               <div style="margin-top: 35px;">
-                <a href="#home-section-contact" class="btn btn-primary">Book A Free Consultation</a>
+                <a href="#contact" class="btn btn-primary">Book A Free Consultation</a>
               </div>
             </div>
           </div>
@@ -991,9 +1160,9 @@
             </div>
             
             <div class="diy-links">
-              <div style="text-align: center; margin-bottom: 25px; padding: 20px; background: var(--bg-white); border-radius: var(--border-radius); border: 2px dashed var(--accent-color); box-shadow: var(--shadow-sm);">
+              <div style="text-align: center; margin-bottom: 25px; padding: 24px; background: rgba(255, 255, 255, 0.7); border-radius: 24px 6px 24px 6px; border: 1.5px dashed rgba(198, 149, 46, 0.4); box-shadow: 0 10px 30px rgba(11, 27, 51, 0.03); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);">
                 <img src="images/qr_code.png" alt="Scan to open Demat Account" style="width: 140px; height: 140px; margin: 0 auto 12px; display: block; border-radius: 4px; box-shadow: var(--shadow-sm);">
-                <p style="font-size: 13px; font-weight: 700; color: var(--primary-color); margin: 0;">Scan QR Code to Open Account instantly</p>
+                <p style="font-size: 13px; font-weight: 700; color: var(--wa-ledger-navy); margin: 0; font-family: var(--font-body);">Scan QR Code to Open Account Instantly</p>
               </div>
               
               <h3>Choose Your Platform Link</h3>
@@ -1044,36 +1213,160 @@
         <div class="container">
           <div class="about-detailed-grid" style="align-items: stretch;">
             <div>
-              <h2 id="serviceDetailSubtitle" style="font-size: 24px; margin-bottom: 20px; color: var(--primary-color);">Service Subtitle</h2>
-              <p id="serviceDetailText" style="font-size: 16px; margin-bottom: 30px; line-height: 1.8; color: var(--text-dark);">Service detailed description.</p>
+              <h2 id="serviceDetailSubtitle" style="font-family: var(--font-headings); font-size: 24px; margin-bottom: 20px; color: var(--wa-ledger-navy); font-weight: 600;">Service Subtitle</h2>
+              <p id="serviceDetailText" style="font-family: var(--font-body); font-size: 16px; margin-bottom: 30px; line-height: 1.8; color: var(--wa-slate);">Service detailed description.</p>
               
-              <h3 style="font-size: 20px; margin-bottom: 20px; color: var(--primary-color); border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Key Benefits</h3>
+              <h3 style="font-family: var(--font-headings); font-size: 20px; margin-bottom: 20px; color: var(--wa-ledger-navy); border-bottom: 1px solid var(--wa-hairline); padding-bottom: 10px; font-weight: 600;">Key Benefits</h3>
               <ul id="serviceDetailBenefits" class="partner-bullets" style="margin-top: 10px;">
                 <!-- Benefits will be dynamically inserted here -->
               </ul>
             </div>
             
             <div class="diy-links" style="display: flex; flex-direction: column; justify-content: center;">
-              <h3 style="font-size: 22px; margin-bottom: 20px; text-align: center;">Get Started Today</h3>
-              <p style="text-align: center; font-size: 14px; color: var(--text-muted); margin-bottom: 25px;">Ready to start building wealth? Choose one of our self-start options or speak directly to our professional advisor.</p>
+              <h3 style="font-family: var(--font-headings); font-size: 20px; margin-bottom: 20px; text-align: center; color: var(--wa-ledger-navy); font-weight: 600;">Get Started Today</h3>
+              <p style="text-align: center; font-family: var(--font-body); font-size: 14px; color: var(--wa-slate); margin-bottom: 25px;">Ready to start building wealth? Choose one of our self-start options or speak directly to our professional advisor.</p>
               
               <div class="diy-buttons">
                 <a id="serviceDetailDiyLink" href="https://angel-one.onelink.me/Wjgr/h9fay40r" target="_blank" rel="noopener" class="diy-btn">
                   <div>
                     <h4 style="margin: 0; font-size: 16px;" id="serviceDetailDiyTitle">Open Account Online</h4>
-                    <p style="margin: 0; font-size: 11px; font-weight: 400; color: var(--text-muted);" id="serviceDetailDiyDesc">Invest on your own in a few clicks</p>
+                    <p style="margin: 0; font-size: 11px; font-weight: 400; color: var(--wa-slate);" id="serviceDetailDiyDesc">Invest on your own in a few clicks</p>
                   </div>
                   <i class="fas fa-chevron-right"></i>
                 </a>
                 
-                <a href="#home-section-contact" class="diy-btn" style="background-color: var(--primary-color); border-color: var(--primary-color); color: var(--accent-color);">
+                <a href="#contact" class="diy-btn" style="background-color: var(--wa-ledger-navy); border-color: var(--wa-ledger-navy); color: #FFFFFF;">
                   <div>
-                    <h4 style="margin: 0; font-size: 16px; color: var(--accent-color);">Talk to Atharva</h4>
+                    <h4 style="margin: 0; font-size: 16px; color: var(--wa-compounding-gold);">Talk to Atharva</h4>
                     <p style="margin: 0; font-size: 11px; font-weight: 400; color: rgba(255, 255, 255, 0.75);">Request a call back for personal advice</p>
                   </div>
-                  <i class="fas fa-phone-alt"></i>
+                  <i class="fas fa-phone-alt" style="color: var(--wa-compounding-gold);"></i>
                 </a>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- =======================================================
+         VIEW 7: CONTACT US DEDICATED VIEW
+         ======================================================= -->
+    <div id="contact-view" class="app-view">
+      <div class="page-banner">
+        <div class="container">
+          <h1>Contact Our Office</h1>
+          <div class="breadcrumbs">
+            <a href="#home">Home</a> <span>&gt;</span> Contact Us
+          </div>
+        </div>
+      </div>
+      
+      <section class="section">
+        <div class="container">
+          <div class="contact-page-layout">
+            <!-- Left Column: Trust-building Details card -->
+            <div class="contact-info-card" data-hover-lift>
+              <span class="section-label" style="text-align: left;">OFFICIAL CREDENTIALS & LOCATION</span>
+              <h3 style="color: var(--wa-ledger-navy); font-family: var(--font-headings); font-size: 26px; margin-bottom: 20px; font-weight: 600;">Wealth Acumen Headquarters</h3>
+              <p style="color: var(--wa-slate); font-family: var(--font-body); font-size: 15px; margin-bottom: 30px; line-height: 1.6;">
+                Get in touch with an AMFI Registered Mutual Fund Distributor. Whether you are seeking customized SIP planning, stock market onboarding, or portfolio review, our door is always open.
+              </p>
+              
+              <div class="contact-detail-items">
+                <div class="detail-item">
+                  <div class="detail-icon"><i class="fas fa-map-marker-alt"></i></div>
+                  <div class="detail-text">
+                    <h4>Registered Office Address</h4>
+                    <p>4, Floor Ground, plot-170, Empress Mahal, Dr Babasaheb Ambedkar road, Tilak Rd, Dadar East, Mumbai, Maharashtra 400014</p>
+                  </div>
+                </div>
+                
+                <div class="detail-item">
+                  <div class="detail-icon"><i class="fas fa-phone-alt"></i></div>
+                  <div class="detail-text">
+                    <h4>Direct Phone Support</h4>
+                    <p>+91 9325227357</p>
+                  </div>
+                </div>
+                
+                <div class="detail-item">
+                  <div class="detail-icon"><i class="fas fa-envelope"></i></div>
+                  <div class="detail-text">
+                    <h4>Official Email Address</h4>
+                    <p>info@wealthacumen.in</p>
+                  </div>
+                </div>
+                
+                <div class="detail-item">
+                  <div class="detail-icon"><i class="fas fa-clock"></i></div>
+                  <div class="detail-text">
+                    <h4>Operating Hours</h4>
+                    <p>Monday – Saturday: 9:00 AM – 6:30 PM (IST)</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="contact-trust-badges" style="margin-top: 30px; display: flex; gap: 15px; flex-wrap: wrap;">
+                <div class="trust-badge" style="background: var(--wa-mist); border: 1px solid var(--wa-hairline); padding: 8px 12px; border-radius: 6px; font-size: 11px; font-weight: 600; color: var(--wa-ledger-navy);">
+                  <i class="fas fa-shield-alt" style="color: var(--wa-growth-teal); margin-right: 5px;"></i> AMFI ARN-247468
+                </div>
+                <div class="trust-badge" style="background: var(--wa-mist); border: 1px solid var(--wa-hairline); padding: 8px 12px; border-radius: 6px; font-size: 11px; font-weight: 600; color: var(--wa-ledger-navy);">
+                  <i class="fas fa-certificate" style="color: var(--wa-compounding-gold); margin-right: 5px;"></i> NISM Certified Advisor
+                </div>
+              </div>
+            </div>
+            
+            <!-- Right Column: Callback form -->
+            <div class="contact-form-card">
+              <span class="section-label" style="text-align: left;">SECURE ENQUIRY DIRECTORY</span>
+              <h3 style="color: var(--wa-ledger-navy); font-family: var(--font-headings); font-size: 26px; margin-bottom: 20px; font-weight: 600;">Request A Callback</h3>
+              <p style="color: var(--wa-slate); font-family: var(--font-body); font-size: 14px; margin-bottom: 25px; line-height: 1.5;">
+                Fill out the secure registration details below, and Mr. Atharva Jogwar will contact you directly within 24 business hours.
+              </p>
+              
+              <form id="callbackForm">
+                <div class="form-group">
+                  <label for="fullName">Full Name *</label>
+                  <input type="text" id="fullName" class="form-control" placeholder="Enter your full name" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="email">Email *</label>
+                  <input type="email" id="email" class="form-control" placeholder="Enter your email address" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="phone">Phone Number *</label>
+                  <input type="tel" id="phone" class="form-control" placeholder="Enter your mobile number" required>
+                </div>
+                
+                <div class="form-group">
+                  <label>I would like to discuss: *</label>
+                  <div class="form-radio-group">
+                    <label class="radio-option">
+                      <input type="radio" name="discussTopic" value="Equity" checked> Equity
+                    </label>
+                    <label class="radio-option">
+                      <input type="radio" name="discussTopic" value="Mutual Fund"> Mutual Fund
+                    </label>
+                    <label class="radio-option">
+                      <input type="radio" name="discussTopic" value="IPO"> IPO
+                    </label>
+                    <label class="radio-option">
+                      <input type="radio" name="discussTopic" value="Bonds"> Bonds
+                    </label>
+                    <label class="radio-option">
+                      <input type="radio" name="discussTopic" value="Insurance"> Insurance
+                    </label>
+                    <label class="radio-option">
+                      <input type="radio" name="discussTopic" value="Fixed Deposit"> Fixed Deposit
+                    </label>
+                  </div>
+                </div>
+                
+                <button type="submit" class="btn btn-dark" style="width: 100%; padding: 15px; margin-top: 15px; border-radius: 8px;">REQUEST A CALLBACK</button>
+              </form>
             </div>
           </div>
         </div>
@@ -1109,7 +1402,7 @@
             <li><a href="#about">About Us</a></li>
             <li><a href="#faqs">FAQs</a></li>
             <li><a href="#diy">DIY Portal</a></li>
-            <li><a href="#home-section-contact">Contact Us</a></li>
+            <li><a href="#contact">Contact Us</a></li>
             <li><a href="https://www.amfiindia.com/online-center/download-factsheets" target="_blank" rel="noopener">Downloads</a></li>
           </ul>
         </div>
@@ -1151,6 +1444,13 @@
           </div>
         </div>
         
+      </div>
+      
+      <!-- Compliance Disclaimer Block -->
+      <div class="footer-compliance-disclaimer" style="margin-top: 30px; font-size: 11px; color: var(--wa-slate); line-height: 1.6; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px;">
+        <p><strong>Disclaimer:</strong> Mutual Fund investments are subject to market risks, read all scheme related documents carefully. Registration granted by AMFI in no way guarantees performance of the schemes or provides any assurance of returns to investors.</p>
+        <p style="margin-top: 10px;"><strong>ARN & Registration:</strong> AMFI Registered Mutual Fund Distributor (ARN-247468) | ARN Validity: 29-Sep-2027 | EUIN: E459104. Registered Office: 4, Floor Ground, plot-170, Empress Mahal, Dr Babasaheb Ambedkar road, Tilak Rd, Dadar East, Mumbai, Maharashtra 400014.</p>
+        <p style="margin-top: 10px;"><strong>Disclosure:</strong> In accordance with the SEBI circular dated SEBI/IMD/CIR No. 4/168230/09, the commission details received by Wealth Acumen from various Mutual Funds (AMCs) are disclosed on request or can be found on our platforms. Wealth Acumen operates solely as a commission-only distributor of Mutual Funds and does not charge any direct investment advisory fees to clients.</p>
       </div>
     </div>
     

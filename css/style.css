@@ -202,7 +202,7 @@ header {
 /* Sticky Main Navbar */
 .main-nav {
   background-color: transparent;
-  padding: 20px 6%;
+  padding: 20px max(40px, calc((100% - 1360px) / 2));
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -217,7 +217,7 @@ header {
   right: 0;
   background-color: var(--wa-ledger-navy);
   box-shadow: var(--shadow-md);
-  padding: 12px 6%;
+  padding: 12px max(40px, calc((100% - 1360px) / 2));
   z-index: 1010;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   animation: slideDown 0.3s ease;
@@ -455,7 +455,7 @@ header {
 .container {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 40px;
 }
 
 .section {
@@ -3755,7 +3755,7 @@ footer {
 .slim-header-inner {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 40px;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
@@ -4138,5 +4138,18 @@ footer {
     width: 100% !important;
     text-align: center !important;
     justify-content: center !important;
+  }
+
+  .container,
+  .slim-header-inner {
+    padding: 0 20px !important;
+  }
+
+  .main-nav {
+    padding: 20px 20px !important;
+  }
+
+  .main-nav.sticky {
+    padding: 12px 20px !important;
   }
 }

@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let startTimestamp = null;
     const duration = 1200;
     const startValue = 0;
-    const endValue = 5045755;
+    const endValue = 50457550;
     
     function step(timestamp) {
       if (!startTimestamp) startTimestamp = timestamp;
@@ -54,12 +54,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (progress < 1) {
         window.requestAnimationFrame(step);
       } else {
-        heroCountUp.textContent = '\u20B950,45,755'; // specific non-rounded per brief
+        heroCountUp.textContent = '\u20B95,04,57,550'; // specific non-rounded per brief
       }
     }
     window.requestAnimationFrame(step);
   } else if (heroCountUp) {
-    heroCountUp.textContent = '\u20B950,45,755';
+    heroCountUp.textContent = '\u20B95,04,57,550';
   }
 
 

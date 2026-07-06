@@ -2835,7 +2835,7 @@ footer {
   .about-detailed-grid,
   .ebook-modal-grid,
   .partner-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 40px;
   }
 
@@ -3705,7 +3705,7 @@ footer {
 /* Responsive Explorer */
 @media (max-width: 991px) {
   .asset-explorer-workspace {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 30px;
   }
   
@@ -4105,5 +4105,32 @@ footer {
 
   .trust-badge {
     padding: 0;
+  }
+
+  /* Compounding calculator responsiveness */
+  .sip-calculator {
+    padding: 24px 20px !important;
+    border-radius: 24px 8px 24px 8px !important;
+  }
+
+  .result-box p {
+    font-size: 15px !important;
+  }
+
+  .sip-results {
+    padding: 12px 0 !important;
+  }
+
+  /* Services explorer dashboard responsiveness */
+  .dashboard-footer {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+  }
+
+  .dashboard-footer .btn {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
   }
 }

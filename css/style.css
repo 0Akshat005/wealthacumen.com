@@ -2834,7 +2834,8 @@ footer {
   .diy-grid,
   .about-detailed-grid,
   .ebook-modal-grid,
-  .partner-grid {
+  .partner-grid,
+  .features-grid-wrapper {
     grid-template-columns: minmax(0, 1fr);
     gap: 40px;
   }
@@ -3711,6 +3712,7 @@ footer {
   
   .roadmap-step {
     width: 100%;
+    left: 0 !important;
     padding-left: 60px !important;
     padding-right: 0 !important;
     text-align: left !important;

@@ -813,18 +813,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  if (heroSection) {
-    heroSection.addEventListener('mousemove', (e) => {
-      const x = (window.innerWidth - e.pageX * 2) / 80;
-      const y = (window.innerHeight - e.pageY * 2) / 80;
-      heroSection.style.backgroundPosition = `calc(50% + ${x}px) calc(50% + ${y}px)`;
-    });
-
-    heroSection.addEventListener('mouseleave', () => {
-      heroSection.style.backgroundPosition = '50% 50%';
-    });
-  }
-
   // =======================================================
   // HERO PARTICLES INTERACTIVE SIMULATION
   // =======================================================
